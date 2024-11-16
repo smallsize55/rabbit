@@ -1,11 +1,12 @@
 name: Share data between jobs
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # Allows manual triggering of the workflow
+
 jobs:
   job_1:
     name: Add 3 and 7
-    runs-on: Linux
+    runs-on: actions_runner_dev
     steps:
       - name: Add numbers
         shell: bash
@@ -20,7 +21,7 @@ jobs:
   job_2:
     name: Multiply by 9
     needs: job_1
-    runs-on: Linux
+    runs-on: actions_runner_dev
     steps:
       - name: Download math result for job 1
         uses: actions/download-artifact@v3
@@ -40,7 +41,7 @@ jobs:
   job_3:
     name: Display results
     needs: job_2
-    runs-on: Linux
+    runs-on: actions_runner_dev
     steps:
       - name: Download math result for job 2
         uses: actions/download-artifact@v3
